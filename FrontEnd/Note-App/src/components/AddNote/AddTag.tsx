@@ -1,13 +1,17 @@
-import { IoMdAdd } from "react-icons/io";
-import "./AddNote.css";
+import React from "react";
 
-function AddTag({ tag, handleChange, addTag }: { tags: string[], tag: string, handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void, addTag: () => void }) {
+function AddTag({ handleChange, addTag, tag }: { handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void, addTag: () => void, tag: string }) {
   return (
     <div className="addNote">
-      <input type="text" name="tag" placeholder="Enter tag" value={tag} onChange={handleChange} />
-      <div className="addButton" onClick={addTag}>
-        <IoMdAdd />
-      </div>
+      <input 
+        type="text" 
+        placeholder="Enter tag" 
+        value={tag}
+        onChange={handleChange}
+      />
+      <button type="button" onClick={addTag}>
+        +
+      </button>
     </div>
   );
 }
