@@ -9,4 +9,17 @@
     flex-wrap: wrap;
     gap: 10px;
     padding-top: 20px;
+    width: 100vw;
+}
+
+.notes{
+    position: relative;
+}
+
+.add-Note{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px #cbeff7;
 }

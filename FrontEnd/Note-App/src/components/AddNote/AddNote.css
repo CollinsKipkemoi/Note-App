@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input[type="text"], textarea{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: transparent;
+}
+
+input:active, textarea:active{
+    outline: none;
+    border: none;
+}
+
+/* ?Add Note */
+.addNote{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.addButton{
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgb(203, 239, 247);
+}
+
+.btn{
+    width: 100%;
+}

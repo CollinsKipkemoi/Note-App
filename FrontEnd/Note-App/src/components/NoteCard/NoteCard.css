@@ -4,8 +4,9 @@
     box-sizing: border-box;
 }
 
-.card{
-    width: 200px;
+.card {
+    flex: 1 1 200px; 
+    max-width: 200px; 
     height: 350px;
     padding: 15px;
     display: flex;
