@@ -23,3 +23,7 @@
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px #cbeff7;
 }
+
+.dashboard{
+    position: relative;
+}

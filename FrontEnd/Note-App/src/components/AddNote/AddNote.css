@@ -24,6 +24,7 @@ input:active, textarea:active{
     gap: 10px;
     align-items: center;
     justify-content: center;
+    
 }
 
 .addButton{
@@ -66,3 +67,12 @@ input:active, textarea:active{
 .added-tags li{
     display: inline;
 }
+
+/* Tag alert */
+.tag-alert{
+    position: fixed;
+    top: 0;
+    left: 30%;
+}
+
+

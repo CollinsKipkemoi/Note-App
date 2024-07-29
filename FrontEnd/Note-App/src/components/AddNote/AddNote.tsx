@@ -6,19 +6,21 @@ import {
 } from "../../components/ui/popover";
 import "./AddNote.css";
 import { set, useForm } from "react-hook-form";
+import TagAlert from "./TagAlert";
 
 function AddNote() {
   const [tags, setTags] = useState<string[]>([]);
   const [tag, setTag] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [showTagAlert, setShowTagAlert] = useState<boolean>(false);
 
   // !Validation using react-hook-form
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors, reset } = useForm();
 
   const onSubmit = (data: any) => {
     if (tags.length === 0) {
-      alert("Atleast one tag is needed")
+      setShowTagAlert(true);
       return
     }
     console.log(data);
@@ -42,6 +44,7 @@ function AddNote() {
       // Update the form state and clear errors
       setValue("tags", newTags);
       clearErrors("tags");
+      setShowTagAlert(false);
     }
   };
 
@@ -51,6 +54,7 @@ function AddNote() {
 
   return (
     <div className="add-Note">
+      {showTagAlert && <TagAlert />}
       <Popover>
         <PopoverTrigger>
           <button type="button" className="btn btn-warning">Add note</button>
