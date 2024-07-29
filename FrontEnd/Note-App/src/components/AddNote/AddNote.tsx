@@ -5,8 +5,9 @@ import {
   PopoverTrigger,
 } from "../../components/ui/popover";
 import "./AddNote.css";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import TagAlert from "./TagAlert";
+import { IoIosClose } from "react-icons/io";
 
 function AddNote() {
   const [tags, setTags] = useState<string[]>([]);
@@ -51,6 +52,11 @@ function AddNote() {
   useEffect(() => {
     console.log(tags);
   }, [tags]);
+
+  const handleRemoveTag = (tag: string) => {
+    const newTags = tags.filter(t => t !== tag);
+    setTags(newTags);
+  }
 
   return (
     <div className="add-Note">
@@ -99,13 +105,15 @@ function AddNote() {
                 +
               </button>
             </div>
-            <div className="form-group">
+            {tags.length > 0 && <div className="form-group">
               <ul className="added-tags">
                 {tags.map((t, index) => (
-                  <li key={index}>#{t}</li>
+                  <li className="one-tag" key={index}>#{t} <IoIosClose className="close-icon"
+                    onClick={() => handleRemoveTag(t)}
+                  /></li>
                 ))}
               </ul>
-            </div>
+            </div>}
             <button type="submit" className="btn btn-warning">Add note</button>
           </form>
         </PopoverContent>
