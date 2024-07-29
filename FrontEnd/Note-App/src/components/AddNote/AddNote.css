@@ -36,3 +36,33 @@ input:active, textarea:active{
 .btn{
     width: 100%;
 }
+
+.error{
+    color: red;
+    font-size: 0.8rem;
+}
+
+.tags{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.tags button{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgb(203, 239, 247);
+}
+
+.added-tags{
+    font-size: 0.8em;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    color: grey;
+}
+
+.added-tags li{
+    display: inline;
+}

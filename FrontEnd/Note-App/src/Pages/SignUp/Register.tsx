@@ -7,7 +7,6 @@ import {
     CardTitle,
 } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
-import { Button } from "../../components/ui/button"
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
@@ -91,10 +90,10 @@ function Login() {
                     {errors.confirmPassword && <CardDescription className="error">{`${errors.confirmPassword.message}`}</CardDescription>}
                 </form>
                 <br />
-                <Button variant="outline" className="logInBtn"
+                <button className="logInBtn"
                     disabled={isSubmitting}
                     onClick={handleSubmit(onSubmit)}
-                >Register</Button>
+                >Register</button>
                 <br />
                 <div className="or">
                     <div className="hrContainer"><hr /></div>

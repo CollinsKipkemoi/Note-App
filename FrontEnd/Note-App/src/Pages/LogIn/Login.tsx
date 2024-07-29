@@ -8,7 +8,6 @@ import {
 } from "../../components/ui/card";
 import { Input } from "../../components/ui/input"
 import { Checkbox } from "../../components/ui/checkbox"
-import { Button } from "../../components/ui/button"
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
@@ -80,10 +79,10 @@ function Login() {
           <CardDescription>Remember me</CardDescription>
         </div>
         <br />
-        <Button variant="outline" className="logInBtn"
+        <button className="logInBtn"
           disabled={isSubmitting}
           onClick={handleSubmit(onSubmit)}
-        >Log in</Button>
+        >Log in</button>
         <CardDescription className="forgot">Forgot password?</CardDescription>
         <br />
         <div className="or">
