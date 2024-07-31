@@ -49,7 +49,6 @@ function Login() {
                         }
                     />
                     {errors.username && <CardDescription className="error">{`${errors.username.message}`}</CardDescription>}
-                    <br />
                     <Input placeholder="Email"
                         {
                         ...register("email", {
@@ -63,7 +62,6 @@ function Login() {
                         type="email"
                     />
                     {errors.email && <CardDescription className="error">{`${errors.email.message}`}</CardDescription>}
-                    <br />
                     <Input placeholder="Password"
                         {
                         ...register("password", {
@@ -76,8 +74,8 @@ function Login() {
                         }
                         type="password"
                     />
-                    <br />
                     {errors.password && <CardDescription className="error">{`${errors.password.message}`}</CardDescription>}
+                    
                     <Input type="password"
                         {
                         ...register("confirmPassword", {
