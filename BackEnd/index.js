@@ -62,6 +62,54 @@ app.post("/register", async (req, res) => {
   });
 });
 
+// *login API
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email && !password) {
+    return res.status(400).json({
+      error: true,
+      message: "Email and password are required!",
+    });
+  }
+  if (!email) {
+    return res.status(400).json({
+      error: true,
+      message: "Email is required!",
+    });
+  }
+
+  if (!password) {
+    return res.status(400).json({
+      error: true,
+      message: "Password is required!",
+    });
+  }
+
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    return res.status(404).json({
+      error: true,
+      message: "User not found!",
+    });
+  }
+  if (user.email === email && user.password === password) {
+    const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "1h",
+    });
+    return res.json({
+      error: false,
+      message: "Login succesful!",
+      email,
+      accessToken,
+    });
+  } else {
+    return res.status(400).json({
+      error: true,
+      message: "Invalid credentials!",
+    });
+  }
+});
+
 const PORT = process.env.PORT || 8000;
 console.log("Attempting to connect to the database...");
 
