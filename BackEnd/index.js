@@ -5,6 +5,7 @@ const config = require("./config.json");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const User = require("./models/user.model");
+const Note = require("./models/note.model");
 const { authenticateToken } = require("./utilities");
 
 const app = express();
@@ -61,7 +62,6 @@ app.post("/register", async (req, res) => {
     message: "User created successfully!",
   });
 });
-
 // *login API
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -106,6 +106,37 @@ app.post("/login", async (req, res) => {
     return res.status(400).json({
       error: true,
       message: "Invalid credentials!",
+    });
+  }
+});
+// *Add note
+app.post("/add-note", authenticateToken, async (req, res) => {
+  const { title, content, tags } = req.body;
+  const { user } = req.user;
+
+  try {
+    if (!title || !content) {
+      return res.status(400).json({
+        error: true,
+        message: "Title and content are required!",
+      });
+    }
+    const note = new Note({
+      title,
+      content,
+      tags: tags || [],
+      userId: user._id,
+    });
+    await note.save();
+    res.status(201).json({
+      error: false,
+      message: "Note added succesfully!",
+      note,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: true,
+      message: "Error adding note!",
     });
   }
 });
