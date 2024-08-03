@@ -4,24 +4,18 @@ const jwt = require("jsonwebtoken");
 // ?REGISTER USER CONTROLLER
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
-  if (!username) {
-    return res.sendStatus(400).json({
+  
+  if (!username || !email || !password) {
+    return res.status(400).json({
       error: true,
-      message: "username is required!",
+      message: !username
+        ? "Username is required!"
+        : !email
+        ? "Email is required!"
+        : "Password is required!",
     });
   }
-  if (!email) {
-    return res.status(400).send({
-      error: true,
-      message: "Email is required!",
-    });
-  }
-  if (!password) {
-    return res.status(400).send({
-      error: true,
-      message: "Password is required!",
-    });
-  }
+
   const isUser = await User.findOne({ email: email });
   if (isUser) {
     return res.status(400).send({
@@ -51,26 +45,18 @@ const registerUser = async (req, res) => {
 // ?LOGIN USER CONTROLLER
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  if (!email && !password) {
-    return res.status(400).json({
-      error: true,
-      message: "Email and password are required!",
-    });
-  }
-  if (!email) {
-    return res.status(400).json({
-      error: true,
-      message: "Email is required!",
-    });
-  }
 
-  if (!password) {
+  if (!email || !password) {
     return res.status(400).json({
       error: true,
-      message: "Password is required!",
+      message:
+        !email && !password
+          ? "Email and password are required!"
+          : !email
+          ? "Email is required!"
+          : "Password is required!",
     });
   }
-
   const user = await User.findOne({ email: email });
   if (!user) {
     return res.status(404).json({
@@ -96,6 +82,6 @@ const loginUser = async (req, res) => {
   }
 };
 module.exports = {
-  registerUser, 
-  loginUser
+  registerUser,
+  loginUser,
 };
