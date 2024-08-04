@@ -68,7 +68,7 @@ const loginUser = async (req, res) => {
     const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "1h",
     });
-    const time = new Date()
+    const time = new Date();
     console.log(`${user.username} logged in at: ${time}`);
 
     return res.json({
@@ -84,7 +84,31 @@ const loginUser = async (req, res) => {
     });
   }
 };
+
+// ?Get user
+const getUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        error: true,
+        message: "User not found!",
+      });
+    }
+    return res.status(200).json({
+      error: false,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Server error!",
+    });
+  }
+};
 module.exports = {
   registerUser,
   loginUser,
+  getUser,
 };
