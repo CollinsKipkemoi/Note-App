@@ -94,19 +94,60 @@ const getAllNotes = async (req, res) => {
 // !DELETE NOTE
 const deleteNote = async (req, res) => {
   const { noteId } = req.params;
-  try{
-    const deleted = await Note.findByIdAndDelete(noteId)
-    console.log(`Deleted the following note\n: ${deleted}`)
+  try {
+    const deleted = await Note.findByIdAndDelete(noteId);
+    console.log(`Deleted the following note\n: ${deleted}`);
     res.status(200).json({
       error: false,
       message: "Deleted note succesfully!",
-      deleted
-    })
-  }catch(err){
+      deleted,
+    });
+  } catch (err) {
     res.status(400).json({
       error: true,
-      message: err.message
-    })
+      message: err.message,
+    });
+  }
+};
+
+// !Pin Note
+const updatePin = async (req, res) => {
+  const { user } = req.user;
+  const { noteId } = req.params;
+  const { isPinned } = req.body;
+  if (!user)
+    return res.status(401).json({
+      error: true,
+      message: "Unauthorised!",
+    });
+
+  try {
+    const note = await Note.findOne({ _id: noteId, userId: user._id });
+    if (!note)
+      return res.status(404).json({
+        error: true,
+        message: "Note not found!",
+      });
+
+    if (isPinned === note.isPinned) {
+      return res.status(400).json({
+        error: true,
+        message: "No changes made!",
+      });
+    }
+    note.isPinned = isPinned;
+    await note.save();
+    console.log(`Note pinned status updated successfully`);
+    return res.status(200).json({
+      error: false,
+      message: "Note pinned status updated successfully!",
+      note,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: error.message,
+    });
   }
 };
 
@@ -114,5 +155,6 @@ module.exports = {
   addNote,
   editNote,
   getAllNotes,
-  deleteNote
+  deleteNote,
+  updatePin,
 };
