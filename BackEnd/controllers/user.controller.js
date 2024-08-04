@@ -69,7 +69,7 @@ const loginUser = async (req, res) => {
       expiresIn: "1h",
     });
     const time = new Date()
-    console.log(`Logged in at: ${time}`);
+    console.log(`${user.username} logged in at: ${time}`);
 
     return res.json({
       error: false,

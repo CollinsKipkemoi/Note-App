@@ -77,7 +77,7 @@ const getAllNotes = async (req, res) => {
   const { user } = req.user;
   // console.log(user);
   try {
-    const notes = await Note.find({ userId: user._id })
+    const notes = await Note.find({ userId: user._id }).sort({ isPinned: -1 });
     return res.status(200).json({
       error: false,
       notes,
@@ -91,8 +91,28 @@ const getAllNotes = async (req, res) => {
   }
 };
 
+// !DELETE NOTE
+const deleteNote = async (req, res) => {
+  const { noteId } = req.params;
+  try{
+    const deleted = await Note.findByIdAndDelete(noteId)
+    console.log(`Deleted the following note\n: ${deleted}`)
+    res.status(200).json({
+      error: false,
+      message: "Deleted note succesfully!",
+      deleted
+    })
+  }catch(err){
+    res.status(400).json({
+      error: true,
+      message: err.message
+    })
+  }
+};
+
 module.exports = {
   addNote,
   editNote,
-  getAllNotes
+  getAllNotes,
+  deleteNote
 };
