@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 // ?REGISTER USER CONTROLLER
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
-  
+
   if (!username || !email || !password) {
     return res.status(400).json({
       error: true,
@@ -68,6 +68,9 @@ const loginUser = async (req, res) => {
     const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "1h",
     });
+    const time = new Date()
+    console.log(`Logged in at: ${time}`);
+
     return res.json({
       error: false,
       message: "Login succesful!",

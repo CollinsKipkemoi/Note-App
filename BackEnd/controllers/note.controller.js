@@ -44,7 +44,6 @@ const editNote = async (req, res) => {
     });
   }
 
-
   try {
     const note = await Note.findOne({ _id: noteId, userId: user._id });
     if (!note) {
@@ -72,7 +71,28 @@ const editNote = async (req, res) => {
     });
   }
 };
+
+// !GET ALL THE NOTES
+const getAllNotes = async (req, res) => {
+  const { user } = req.user;
+  // console.log(user);
+  try {
+    const notes = await Note.find({ userId: user._id })
+    return res.status(200).json({
+      error: false,
+      notes,
+      message: "All notes retrieved successfully!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   addNote,
   editNote,
+  getAllNotes
 };
