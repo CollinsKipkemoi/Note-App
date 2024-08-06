@@ -12,7 +12,8 @@ import { FaFacebook } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { FieldValues, useForm } from "react-hook-form";
 import "../../styles/Auth.css"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -20,11 +21,28 @@ import { Link } from "react-router-dom";
 
 function Login() {
 
-    const { register, handleSubmit, formState: { errors, isSubmitting }, getValues, reset } = useForm();
-    const onSubmit = (data: FieldValues) => {
-        console.log(data);
+    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm();
+    const navigate = useNavigate();
+    const onSubmit = async (data: FieldValues) => {
+        try {
+            const response = await axios.post("http://localhost:8000/register", {
+                username: data.username,
+                email: data.email,
+                password: data.password
+            });
+            console.log(response.data);
+            navigate("/login");
+        } catch (error) {
+            if(axios.isAxiosError(error)){
+                console.log("Axios Error:  ",error.response?.data);
+            }else{
+                console.log("Unexpected Error: ",error);
+            }
+        } finally {
+            reset();
+            console.log("Request completed");
+        }
 
-        reset();
     }
     return (
         <Card className="loginCard">
@@ -75,17 +93,7 @@ function Login() {
                         type="password"
                     />
                     {errors.password && <CardDescription className="error">{`${errors.password.message}`}</CardDescription>}
-                    
-                    <Input type="password"
-                        {
-                        ...register("confirmPassword", {
-                            required: "Confirm password is required",
-                            validate: (value) => value === getValues("password") || "Passwords do not match"
-                        })
-                        }
-                        placeholder="Confirm password"
-                    />
-                    {errors.confirmPassword && <CardDescription className="error">{`${errors.confirmPassword.message}`}</CardDescription>}
+
                 </form>
                 <br />
                 <button className="logInBtn"

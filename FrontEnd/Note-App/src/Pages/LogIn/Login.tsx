@@ -17,15 +17,34 @@ import "../../styles/Auth.css"
 import { IoEyeOffOutline } from "react-icons/io5";
 import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
 function Login() {
-
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm();
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
-    reset();
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const response = await axios.post("http://localhost:8000/login", {
+        email: data.email,
+        password: data.password
+      });
+      console.log(response.data);
+      if (!response.data.error) {
+        navigate("/dashboard");
+      } else {
+        console.log("Error: ", response.data.message);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log("Axios Error:  ", error.response?.data);
+      } else {
+        console.log("Unexpected Error: ", error);
+      }
+      reset();
+    }
   }
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => {
@@ -102,6 +121,7 @@ function Login() {
     </Card>
 
   )
+
 }
 
 export default Login
