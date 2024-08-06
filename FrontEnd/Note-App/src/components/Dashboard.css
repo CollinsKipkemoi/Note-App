@@ -17,13 +17,16 @@
 }
 
 .add-Note{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px #cbeff7;
 }
 
 .dashboard{
     position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow-y: auto;
 }

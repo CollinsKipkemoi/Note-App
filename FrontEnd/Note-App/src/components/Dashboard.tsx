@@ -18,7 +18,7 @@ function Dashboard() {
   const [notes, setNotes] = useState([]);
   const fetchData = async () => {
     const token = localStorage.getItem("accessToken");
-    console.log(token);
+    // console.log(token);
     try {
       const response = await AxiosInstance.get("/all-notes", {
         headers: {
@@ -42,6 +42,8 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <Navbar />
+      <AddNote />
+
       <div className="notes container ">
         {/* <NoteCard title="Test"
           date="2021-05-01"
@@ -65,9 +67,8 @@ function Dashboard() {
             onDelete={() => console.log("Delete")}
             onPin={() => console.log("Pin")}
           />
-        })}        
-        
-        <AddNote />
+        })}
+
       </div>
     </div>
   )
