@@ -2,6 +2,7 @@ import Navbar from "./Navbar"
 import NoteCard from "./NoteCard/NoteCard"
 import './Dashboard.css'
 import AddNote from "./AddNote/AddNote"
+import AxiosInstance from "../utils/AxiosInstance"
 
 type Note = {
   _id: string,
@@ -13,23 +14,23 @@ type Note = {
 }
 
 function Dashboard({ notes, fetchData }: { notes: Note[], fetchData: () => void }) {
-  
+
+  const onEdelete = async (id: string) => {
+    const response = await AxiosInstance.delete(`/delete-note/${id}`)
+    if (!response.data.error) {
+      fetchData()
+      console.log("Note Deleted successfully!")
+    }
+    else {
+      console.log("Error deleting note")
+    }
+  }
   return (
     <div className="dashboard">
       <Navbar />
-      <AddNote fetchData = {fetchData} />
+      <AddNote fetchData={fetchData} />
 
       <div className="notes container ">
-        {/* <NoteCard title="Test"
-          date="2021-05-01"
-          content="This is a test note"
-          tags={["#test"]}
-          isPinned={false}
-          onEdit={() => console.log("Edit")}
-          onDelete={() => console.log("Delete")}
-          onPin={() => console.log("Pin")}
-
-        /> */}
         {notes.map((note: Note) => {
           return <NoteCard
             key={note._id}
@@ -39,7 +40,7 @@ function Dashboard({ notes, fetchData }: { notes: Note[], fetchData: () => void 
             tags={note.tags.map((tag: string) => `#${tag}`)}
             isPinned={note.isPinned}
             onEdit={() => console.log("Edit")}
-            onDelete={() => console.log("Delete")}
+            onDelete={() => onEdelete(note._id)}
             onPin={() => console.log("Pin")}
           />
         })}
