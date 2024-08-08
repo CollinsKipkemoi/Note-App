@@ -22,7 +22,7 @@ function NoteCard({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
                     <h2>{title}</h2>
                     <p>{date}</p>
                 </div>
-                <MdOutlinePushPin className="pin" onClick={onPin} style={{ color: isPinned ? "#cbeff7" : "" }} />
+                <MdOutlinePushPin className="pin" onClick={onPin} style={{ color: isPinned ? "orange" : "" }} />
             </div>
             <div className="c-body">
                 <p>{content}</p>

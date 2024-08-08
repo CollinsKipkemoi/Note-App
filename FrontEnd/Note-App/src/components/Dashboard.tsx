@@ -25,6 +25,17 @@ function Dashboard({ notes, fetchData }: { notes: Note[], fetchData: () => void 
       console.log("Error deleting note")
     }
   }
+
+  const onPin = async (id: string) => {
+    const response = await AxiosInstance.put(`/update-pin/${id}`)
+    if (!response.data.error) {
+      fetchData()
+      console.log("Note Pinned successfully!")
+    }
+    else {
+      console.log("Error pinning note")
+    }
+  }
   return (
     <div className="dashboard">
       <Navbar />
@@ -41,7 +52,7 @@ function Dashboard({ notes, fetchData }: { notes: Note[], fetchData: () => void 
             isPinned={note.isPinned}
             onEdit={() => console.log("Edit")}
             onDelete={() => onEdelete(note._id)}
-            onPin={() => console.log("Pin")}
+            onPin={() => onPin(note._id)}
           />
         })}
 
