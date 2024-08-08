@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Popover,
   PopoverContent,
@@ -8,8 +8,9 @@ import "./AddNote.css";
 import { useForm } from "react-hook-form";
 import TagAlert from "./TagAlert";
 import { IoIosClose } from "react-icons/io";
+import AxiosInstance from "../../utils/AxiosInstance";
 
-function AddNote() {
+function AddNote({fetchData } : {fetchData: () => void}) {
   const [tags, setTags] = useState<string[]>([]);
   const [tag, setTag] = useState<string>("");
   const [title, setTitle] = useState<string>("");
@@ -19,12 +20,26 @@ function AddNote() {
   // !Validation using react-hook-form
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors, reset } = useForm();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     if (tags.length === 0) {
       setShowTagAlert(true);
       return
     }
     console.log(data);
+    try {
+      const response = await AxiosInstance.post("/add-note", {
+        title: data.title,
+        content: data.content,
+        tags: data.tags
+      });  
+      if(!response.data.error){
+        console.log(response.data.message);
+        fetchData();
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
     setTags([]);
     setTitle("");
     setContent("");
@@ -49,14 +64,11 @@ function AddNote() {
     }
   };
 
-  useEffect(() => {
-    console.log(tags);
-  }, [tags]);
-
   const handleRemoveTag = (tag: string) => {
     const newTags = tags.filter(t => t !== tag);
     setTags(newTags);
   }
+
 
   return (
     <div className="add-Note">

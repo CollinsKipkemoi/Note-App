@@ -2,8 +2,6 @@ import Navbar from "./Navbar"
 import NoteCard from "./NoteCard/NoteCard"
 import './Dashboard.css'
 import AddNote from "./AddNote/AddNote"
-import AxiosInstance from "../utils/AxiosInstance"
-import { useEffect, useState } from "react"
 
 type Note = {
   _id: string,
@@ -14,35 +12,12 @@ type Note = {
   isPinned: boolean
 }
 
-function Dashboard() {
-  const [notes, setNotes] = useState([]);
-  const fetchData = async () => {
-    const token = localStorage.getItem("accessToken");
-    // console.log(token);
-    try {
-      const response = await AxiosInstance.get("/all-notes", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      if (!response.data.error) {
-        setNotes(response.data.notes);
-      } else {
-        console.log("Error: ", response.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, [])
+function Dashboard({ notes, fetchData }: { notes: Note[], fetchData: () => void }) {
+  
   return (
     <div className="dashboard">
       <Navbar />
-      <AddNote />
+      <AddNote fetchData = {fetchData} />
 
       <div className="notes container ">
         {/* <NoteCard title="Test"
