@@ -10,7 +10,7 @@ import TagAlert from "./TagAlert";
 import { IoIosClose } from "react-icons/io";
 import AxiosInstance from "../../utils/AxiosInstance";
 
-function AddNote({fetchData } : {fetchData: () => void}) {
+function AddNote({ fetchData }: { fetchData: () => void }) {
   const [tags, setTags] = useState<string[]>([]);
   const [tag, setTag] = useState<string>("");
   const [title, setTitle] = useState<string>("");
@@ -31,14 +31,14 @@ function AddNote({fetchData } : {fetchData: () => void}) {
         title: data.title,
         content: data.content,
         tags: data.tags
-      });  
-      if(!response.data.error){
+      });
+      if (!response.data.error) {
         console.log(response.data.message);
         fetchData();
       }
     } catch (error) {
       console.log(error);
-      
+
     }
     setTags([]);
     setTitle("");
@@ -69,13 +69,15 @@ function AddNote({fetchData } : {fetchData: () => void}) {
     setTags(newTags);
   }
 
+  const btnStyle = { background: "orangered", padding: "8px", color: "white", borderRadius: "5px", fontSize: "0.9em" }
+
 
   return (
     <div className="add-Note">
       {showTagAlert && <TagAlert />}
       <Popover>
         <PopoverTrigger>
-          <button type="button" className="btn btn-warning">Add note</button>
+          <button type="button" style={btnStyle}>Add note</button>
         </PopoverTrigger>
         <PopoverContent>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,7 +128,7 @@ function AddNote({fetchData } : {fetchData: () => void}) {
                 ))}
               </ul>
             </div>}
-            <button type="submit" className="btn btn-warning">Add note</button>
+            <button type="submit" style={btnStyle}>Add note</button>
           </form>
         </PopoverContent>
       </Popover>

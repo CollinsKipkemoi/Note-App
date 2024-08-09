@@ -38,6 +38,9 @@
 .logInBtn {
     width: 100%;
     margin-top: 10px;
+    background-color: orangered;
+    color: white;
+    border-radius: 5px;
 }
 
 .forgot {
