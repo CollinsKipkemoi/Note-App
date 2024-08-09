@@ -107,8 +107,19 @@ const getUser = async (req, res) => {
     });
   }
 };
+
+
+// ?Get all users
+const getAllUsers = async (req, res) => {
+  const users = await User.find();
+  if(!users) return res.status(404).json({error: true, message: "No users found!"});
+  return res.status(200).json({error: false, users});
+}
+
+
 module.exports = {
   registerUser,
   loginUser,
   getUser,
+  getAllUsers
 };

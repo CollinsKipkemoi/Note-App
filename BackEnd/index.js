@@ -3,8 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const config = require("./config.json");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const { authenticateToken } = require("./utilities");
+const passport = require("passport");
+const session = require("express-session");
 
 // !ROUTERS
 const userRouter = require("./routes/user.routes");
@@ -17,6 +17,20 @@ app.use(
     origin: "*", // allow all origins
   })
 );
+
+// !Session middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 
+  }
+}))
+
+// !Passport middleware
+app.use(passport.initialize()); // ?Initializes the passport
+app.use(passport.session()); // ?For persistent login sessions
 
 // !App using the routes
 app.use("/", userRouter);
