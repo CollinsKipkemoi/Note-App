@@ -3,13 +3,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Login from "./Pages/LogIn/Login"
 import Register from "./Pages/SignUp/Register"
 import DashboardContainer from "./components/DashboardContainer"
+import PrivateRoute from "./components/PrivateRoute"
 
 const routes = (
   <Routes>
     <Route path="/" element={<Login />} />
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
-    <Route path="/dashboard" element={<DashboardContainer />} />
+    <Route path="/dashboard" element={
+      <PrivateRoute>
+        <DashboardContainer />
+      </PrivateRoute>
+    } />
   </Routes>
 )
 

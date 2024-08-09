@@ -9,6 +9,7 @@ import Ironclad from "../assets/IroncladDev.jpg";
 import "../styles/Navbar.css";
 import SearchBar from "./Searchbar/SearchBar";
 import { useState } from "react";
+import AxiosInstance from "../utils/AxiosInstance";
 
 function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,7 +17,24 @@ function Navbar() {
     setSearchQuery("");
   };
 
-  const onSearch = () => {};
+  const onSearch = () => { };
+
+  const onLogout = async () => {
+    try {
+      const response = await AxiosInstance.get("/logout");
+      if (response.status === 200) {
+        localStorage.removeItem("accessToken");
+        window.location.href = "/login";
+        window.history.pushState(null, "", "/login");
+        console.log("Logged out successfully");
+      } else {
+        throw new Error("Error logging out");
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary p-2">
@@ -50,9 +68,10 @@ function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link className="link" to="/logout">
-                  Log Out
-                </Link>
+                {/* logout */}
+                <button className="link" onClick={onLogout}>
+                  Logout
+                </button>
               </li>
             </ul>
           </PopoverContent>
