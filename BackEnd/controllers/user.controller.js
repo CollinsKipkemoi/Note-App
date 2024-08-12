@@ -108,18 +108,42 @@ const getUser = async (req, res) => {
   }
 };
 
-
 // ?Get all users
 const getAllUsers = async (req, res) => {
   const users = await User.find();
-  if(!users) return res.status(404).json({error: true, message: "No users found!"});
-  return res.status(200).json({error: false, users});
-}
+  if (!users)
+    return res.status(404).json({ error: true, message: "No users found!" });
+  return res.status(200).json({ error: false, users });
+};
 
+// ?Get user by email
+const getUserByEmail = async (req, res) => {
+  const { email } = req.params;
+  console.log(email);
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        error: true,
+        message: "User not found!",
+      });
+    }
+    return res.status(200).json({
+      error: false,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Server error!",
+    });
+  }
+};
 
 module.exports = {
   registerUser,
   loginUser,
   getUser,
-  getAllUsers
+  getAllUsers,
+  getUserByEmail,
 };

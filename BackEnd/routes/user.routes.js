@@ -1,7 +1,8 @@
 const express = require("express");
-const { registerUser, loginUser, getUser, getAllUsers} = require("../controllers/user.controller");
+const { registerUser, loginUser, getUser, getAllUsers, getUserByEmail} = require("../controllers/user.controller");
 require("../strategies/LocalStrategy");
 const passport = require("passport");
+
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.post("/register", registerUser);
 router.post("/login", passport.authenticate("local") ,loginUser);
 router.get("/user/:userId", getUser);
 router.get("/users", getAllUsers);
+router.get("/userEmail/:email", getUserByEmail);
 router.get("/logout", (req, res, next) => {
     req.logout((err) => {
         if(err) return next(err);
