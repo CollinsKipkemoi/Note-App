@@ -40,7 +40,7 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg bg-body-tertiary p-2">
         <div className="container-fluid">
           <Link to="/dashboard" className="navbar-brand">
-            Note App
+            NoteSync
           </Link>
         </div>
         <div className="serachbar">
