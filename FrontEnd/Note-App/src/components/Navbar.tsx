@@ -39,7 +39,7 @@ function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary p-2">
         <div className="container-fluid">
-          <Link to="/" className="navbar-brand">
+          <Link to="/dashboard" className="navbar-brand">
             Note App
           </Link>
         </div>

@@ -4,6 +4,7 @@ import Login from "./Pages/LogIn/Login"
 import Register from "./Pages/SignUp/Register"
 import DashboardContainer from "./components/DashboardContainer"
 import PrivateRoute from "./components/PrivateRoute"
+import Profile from "./components/Profile/Profile"
 
 const routes = (
   <Routes>
@@ -15,6 +16,7 @@ const routes = (
         <DashboardContainer />
       </PrivateRoute>
     } />
+    <Route path="/profile" element={<Profile />} />
   </Routes>
 )
 

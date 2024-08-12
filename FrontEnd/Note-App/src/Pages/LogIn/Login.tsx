@@ -33,6 +33,7 @@ function Login() {
       });
       console.log(response.data);
       if (!response.data.error) {
+        localStorage.setItem("email", data.email);
         localStorage.setItem("accessToken", response.data.accessToken);
         navigate("/dashboard");
       } else {
