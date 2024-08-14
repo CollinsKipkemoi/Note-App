@@ -151,10 +151,49 @@ const updatePin = async (req, res) => {
   }
 };
 
+//
+const searchNote = async (req, res) => {
+  const { user } = req.user;
+  const { query } = req.query;
+  if (!query) {
+    return res.status(400).json({
+      error: true,
+      message: "Query is required!",
+    });
+  }
+  try {
+    const notes = await Note.find({
+      userId: user._id,
+      $or: [
+        { title: { $regex: new RegExp(query, "i") } },
+        { content: { $regex: new RegExp(query, "i") } },
+        { tags: { $regex: new RegExp(query, "i") } },
+      ],
+    });
+    if(notes.length === 0){
+      return res.status(404).json({
+        error: true,
+        message: "No notes found!",
+      });
+    }
+    return res.status(200).json({
+      error: false,
+      notes,
+      message: "Notes retrieved successfully!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   addNote,
   editNote,
   getAllNotes,
   deleteNote,
   updatePin,
+  searchNote,
 };
