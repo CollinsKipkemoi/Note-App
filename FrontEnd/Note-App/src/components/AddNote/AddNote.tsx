@@ -69,7 +69,7 @@ function AddNote({ fetchData }: { fetchData: () => void }) {
     setTags(newTags);
   }
 
-  const btnStyle = { background: "orangered", padding: "8px", color: "white", borderRadius: "5px", fontSize: "0.9em" }
+  const btnStyle = { background: "orangered", padding: "8px", color: "white", borderRadius: "5px", fontSize: "0.9em", width: "100%" };
 
 
   return (
@@ -111,7 +111,7 @@ function AddNote({ fetchData }: { fetchData: () => void }) {
             <div className="form-group tags">
               <input
                 type="text"
-                placeholder="Enter tag"
+                placeholder="Enter tag e.g, work"
                 value={tag}
                 onChange={handleChange}
               />
@@ -128,7 +128,7 @@ function AddNote({ fetchData }: { fetchData: () => void }) {
                 ))}
               </ul>
             </div>}
-            <button type="submit" style={btnStyle}>Add note</button>
+            <button type="submit" style={btnStyle}>Add</button>
           </form>
         </PopoverContent>
       </Popover>

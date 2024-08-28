@@ -5,10 +5,11 @@ import Register from "./Pages/SignUp/Register"
 import DashboardContainer from "./components/DashboardContainer"
 import PrivateRoute from "./components/PrivateRoute"
 import Profile from "./components/Profile/Profile"
+import Landing from "./Pages/Landing/Landing"
 
 const routes = (
   <Routes>
-    <Route path="/" element={<Login />} />
+    <Route path="/" element={<Landing />} />
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
     <Route path="/dashboard" element={
@@ -27,7 +28,7 @@ function App() {
   }
   return (
     <Router>
-      <div className="container d-flex justify-content-center align-items-center" style={style}>
+      <div className="d-flex justify-content-center align-items-center" style={style}>
         {routes}
       </div>
     </Router>
