@@ -54,74 +54,77 @@ function Login() {
   }
 
   return (
-    <Card className="loginCard">
-      <CardHeader className="loginHeader">
-        <CardTitle>Log in</CardTitle>
-        <CardDescription>Glad you are back!</CardDescription>
-      </CardHeader>
-      <CardContent className="cardContent">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input placeholder="Email"
-            {
-            ...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-                message: "Invalid email format"
-              }
-            })
-            }
-            type="email"
-          />
-          {errors.email && <CardDescription className="error">{`${errors.email.message}`}</CardDescription>}
-          <br />
-          <div className="password">
-            <Input placeholder="Password"
-              {
-              ...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters"
+    <div className="authContainer" >
+      <div className="content d-flex justify-content-center align-items-center">
+        <Card className="loginCard">
+          <CardHeader className="loginHeader">
+            <CardTitle style={{ color: "rgb(0, 209, 205)" }}>Log in</CardTitle>
+            <CardDescription>Glad you are back!</CardDescription>
+          </CardHeader>
+          <CardContent className="cardContent">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Input placeholder="Email"
+                {
+                ...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                    message: "Invalid email format"
+                  }
+                })
                 }
-              })
-              }
-              type={showPassword ? "text" : "password"}
-            />
-            <div className="eye" onClick={togglePassword}>
-              {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                type="email"
+              />
+              {errors.email && <CardDescription className="error">{`${errors.email.message}`}</CardDescription>}
+              <br />
+              <div className="password">
+                <Input placeholder="Password"
+                  {
+                  ...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters"
+                    }
+                  })
+                  }
+                  type={showPassword ? "text" : "password"}
+                />
+                <div className="eye" onClick={togglePassword}>
+                  {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                </div>
+              </div>
+              {errors.password && <CardDescription className="error">{`${errors.password.message}`}</CardDescription>}
+            </form>
+            <br />
+            <div className="remember">
+              <Checkbox />
+              <CardDescription>Remember me</CardDescription>
             </div>
-          </div>
-          {errors.password && <CardDescription className="error">{`${errors.password.message}`}</CardDescription>}
-        </form>
-        <br />
-        <div className="remember">
-          <Checkbox />
-          <CardDescription>Remember me</CardDescription>
-        </div>
-        <br />
-        <button className="logInBtn"
-          disabled={isSubmitting}
-          onClick={handleSubmit(onSubmit)}
-        >Log in</button>
-        <CardDescription className="forgot">Forgot password?</CardDescription>
-        <br />
-        <div className="or">
-          <div className="hrContainer"><hr /></div>
-          <CardDescription>Or</CardDescription>
-          <div className="hrContainer"><hr /></div>
-        </div>
-        <div className="icons">
-          <FcGoogle />
-          <FaFacebook />
-          <FaGithub />
-        </div>
-      </CardContent>
-      <CardFooter className="cardFooter">
-        <CardDescription>Don't have an account? <span className="switch"><Link to="/register">Sign up</Link></span></CardDescription>
-      </CardFooter>
-    </Card>
-
+            <br />
+            <button className="logInBtn"
+              disabled={isSubmitting}
+              onClick={handleSubmit(onSubmit)}
+            >Log in</button>
+            <CardDescription className="forgot">Forgot password?</CardDescription>
+            <br />
+            <div className="or">
+              <div className="hrContainer"><hr /></div>
+              <CardDescription>Or</CardDescription>
+              <div className="hrContainer"><hr /></div>
+            </div>
+            <div className="icons">
+              <FcGoogle />
+              <FaFacebook />
+              <FaGithub />
+            </div>
+          </CardContent>
+          <CardFooter className="cardFooter">
+            <CardDescription>Don't have an account? <span className="switch"><Link to="/register">Sign up</Link></span></CardDescription>
+          </CardFooter>
+        </Card>
+      </div>
+    </div>
   )
 
 }
