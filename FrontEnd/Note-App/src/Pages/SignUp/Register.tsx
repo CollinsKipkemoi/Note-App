@@ -33,10 +33,10 @@ function Login() {
             console.log(response.data);
             navigate("/login");
         } catch (error) {
-            if(axios.isAxiosError(error)){
-                console.log("Axios Error:  ",error.response?.data);
-            }else{
-                console.log("Unexpected Error: ",error);
+            if (axios.isAxiosError(error)) {
+                console.log("Axios Error:  ", error.response?.data);
+            } else {
+                console.log("Unexpected Error: ", error);
             }
         } finally {
             reset();
@@ -45,80 +45,84 @@ function Login() {
 
     }
     return (
-        <Card className="loginCard">
-            <CardHeader className="loginHeader">
-                <CardTitle>Create account</CardTitle>
-                <CardDescription>
-                    Welcome to our platform!
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="cardContent">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input placeholder="Username"
-                        type="text"
-                        {
-                        ...register("username", {
-                            required: "Username is required",
-                            minLength: {
-                                value: 3,
-                                message: "Username must be at least 3 characters"
-                            }
-                        })
-                        }
-                    />
-                    {errors.username && <CardDescription className="error">{`${errors.username.message}`}</CardDescription>}
-                    <Input placeholder="Email"
-                        {
-                        ...register("email", {
-                            required: "Email is required",
-                            pattern: {
-                                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-                                message: "Invalid email format"
-                            }
-                        })
-                        }
-                        type="email"
-                    />
-                    {errors.email && <CardDescription className="error">{`${errors.email.message}`}</CardDescription>}
-                    <Input placeholder="Password"
-                        {
-                        ...register("password", {
-                            required: "Password is required",
-                            minLength: {
-                                value: 6,
-                                message: "Password must be at least 6 characters"
-                            }
-                        })
-                        }
-                        type="password"
-                    />
-                    {errors.password && <CardDescription className="error">{`${errors.password.message}`}</CardDescription>}
+        <div className="authContainer" >
+            <div className="content d-flex justify-content-center align-items-center">
+                <Card className="loginCard">
+                    <CardHeader className="loginHeader">
+                        <CardTitle style={{ color: "rgb(0, 209, 205)"}}>Create account</CardTitle>
+                        <CardDescription>
+                            Welcome to our platform!
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="cardContent">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <Input placeholder="Username"
+                                type="text"
+                                {
+                                ...register("username", {
+                                    required: "Username is required",
+                                    minLength: {
+                                        value: 3,
+                                        message: "Username must be at least 3 characters"
+                                    }
+                                })
+                                }
+                            />
+                            {errors.username && <CardDescription className="error">{`${errors.username.message}`}</CardDescription>}
+                            <Input placeholder="Email"
+                                {
+                                ...register("email", {
+                                    required: "Email is required",
+                                    pattern: {
+                                        value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                                        message: "Invalid email format"
+                                    }
+                                })
+                                }
+                                type="email"
+                            />
+                            {errors.email && <CardDescription className="error">{`${errors.email.message}`}</CardDescription>}
+                            <br />
+                            <Input placeholder="Password"
+                                {
+                                ...register("password", {
+                                    required: "Password is required",
+                                    minLength: {
+                                        value: 6,
+                                        message: "Password must be at least 6 characters"
+                                    }
+                                })
+                                }
+                                type="password"
+                            />
+                            {errors.password && <CardDescription className="error">{`${errors.password.message}`}</CardDescription>}
 
-                </form>
-                <br />
-                <button className="logInBtn"
-                    disabled={isSubmitting}
-                    onClick={handleSubmit(onSubmit)}
-                >Register</button>
-                <br />
-                <div className="or">
-                    <div className="hrContainer"><hr /></div>
-                    <CardDescription>Or</CardDescription>
-                    <div className="hrContainer"><hr /></div>
-                </div>
-                <div className="icons">
-                    <FcGoogle />
-                    <FaFacebook />
-                    <FaGithub />
-                </div>
-            </CardContent>
-            <CardFooter className="cardFooter">
-                <CardDescription>
-                    Already have an account?
-                    <span className="switch"><Link to="/login">Log in</Link></span></CardDescription>
-            </CardFooter>
-        </Card>
-
+                        </form>
+                        <br />
+                        <button className="logInBtn"
+                            disabled={isSubmitting}
+                            onClick={handleSubmit(onSubmit)}
+                        >Register</button>
+                        <br />
+                        <div className="or">
+                            <div className="hrContainer"><hr /></div>
+                            <CardDescription>Or</CardDescription>
+                            <div className="hrContainer"><hr /></div>
+                        </div>
+                        <div className="icons">
+                            <FcGoogle />
+                            <FaFacebook />
+                            <FaGithub />
+                        </div>
+                    </CardContent>
+                    <CardFooter className="cardFooter">
+                        <CardDescription>
+                            Already have an account?
+                            <span className="switch"><Link to="/login">Log in</Link></span></CardDescription>
+                    </CardFooter>
+                </Card>
+            </div>
+        </div>
     )
 }
 
