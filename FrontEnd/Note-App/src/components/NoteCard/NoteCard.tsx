@@ -19,7 +19,7 @@ function NoteCard({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
         <div className="card">
             <div className="cardHeader">
                 <div className="title-date">
-                    <h2>{title}</h2>
+                    <h3>{title}</h3>
                     <p>{date}</p>
                 </div>
                 <MdOutlinePushPin className="pin" onClick={onPin} style={{ color: isPinned ? "orange" : "" }} />
@@ -28,7 +28,7 @@ function NoteCard({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
                 <p>{content}</p>
             </div>
             <div className="c-footer">
-                <div className="tags">
+                <div className="tags ">
                     {tags.map(tag => <span key={tag} className="tag">{tag}</span>)}
                 </div>
                 <div className="actions">

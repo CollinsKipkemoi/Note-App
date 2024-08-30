@@ -28,7 +28,7 @@ function Landing() {
                     <br />
                     <div className="start d-flex justify-content-center align-items-center">
                         <button style={btnStyle}>
-                            <Link to="/login">Get Started</Link>
+                            <Link to="/register">Get Started</Link>
                         </button>
                     </div>
                 </div>

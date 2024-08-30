@@ -6,7 +6,13 @@
 
 .link {
   text-decoration: none;
-  color: black;
+  color: black !important;
+  background: transparent !important;
+}
+
+.link:hover {
+  color: rgb(0, 209, 205) !important;
+  background: transparent !important;
 }
 
 ul {
@@ -19,6 +25,7 @@ ul {
 .navbar {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  background: linear-gradient(to right, black, rgb(0, 209, 205));
 }
 
 /* ?Search bar */
@@ -37,13 +44,13 @@ ul {
   padding: 5px;
   border: none;
   outline: none;
-  background: rgb(245, 137, 98);
+  background: transparent;
 }
 
 .search-bar input:active,
 .search-bar input:focus {
   outline: none !important;
-  border: none;
+  border: none !important;
 }
 
 .search-icon {

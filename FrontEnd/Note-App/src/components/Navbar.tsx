@@ -10,6 +10,7 @@ import "../styles/Navbar.css";
 import SearchBar from "./Searchbar/SearchBar";
 import { useState } from "react";
 import AxiosInstance from "../utils/AxiosInstance";
+import NoteSyncLogo from "../assets/NoteSyncLogo.png";
 
 function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,10 +38,10 @@ function Navbar() {
   };
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary p-2">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary p-2 border-2">
         <div className="container-fluid">
           <Link to="/dashboard" className="navbar-brand">
-            NoteSync
+            <img src={NoteSyncLogo} alt="NoteSync Logo" width={150} />
           </Link>
         </div>
         <div className="serachbar">
